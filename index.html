@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday! 🎂💖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Sacramento&display=swap" rel="stylesheet">
+  <style>
+    @import "styles.css";
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="wrap">
+    <div class="card-shell">
+      <div class="envelope" id="envelope">
+        <div class="flap"></div>
+        <div class="seal">Open Card ✉️</div>
+        <div class="inner">
+          <h1 class="title">Happy Birthday, <span id="nameTarget">Love</span>! ✨</h1>
+          <p class="subtitle">Nov 7th • 💗</p>
+          <p style="text-align:center;margin:10px 0 0;">
+            <span id="tw" class="typewriter"></span>
+          </p>
+
+          <div class="controls">
+            <button id="openBtn">Close Card</button>
+          </div>
+
+          <!-- Photo gallery (replace src with your photos/URLs) -->
+          <div class="gallery" id="gallery">
+            <img src="./IMG_20251107_154814.jpg" alt="Memory 1" />
+            <img src="./IMG_20251107_154819.jpg" alt="Memory 2" />
+            <img src="./IMG_20251107_154824.jpg" alt="Memory 3" />
+            <img src="./IMG_20251107_154829.jpg" alt="Memory 4" />
+            <img src="./Cute_Bunny_7d_1024x1024.jpg" alt="Memory 5" />
+            <img src="./Screenshot_20251013-190239.png" alt="Memory 6" />
+            <img src="./reconsider-bunny.png" alt="Memory 8" />
+          </div>
+
+          <div class="footer">Made with ❤ by <span id="fromName">You</span>. <span class="muted"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox"><img alt="Preview" /></div>
+
+  <!-- Optional audio: replace src with a short mp3 you own rights to -->
+  <audio id="bgm" preload="auto" src=""></audio>
+
+  <script src="index.js"></script>
+</body>
+</html>

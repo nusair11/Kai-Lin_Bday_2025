@@ -1,0 +1,69 @@
+:root {
+    --bg: #fff7fb;
+    --ink: #40384e;
+    --accent: #ff7aa2;
+    --accent-2: #ffd1e0;
+    --card: #ffffff;
+    --gold: #ffc857;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+    margin: 0; background: radial-gradient(1200px 900px at 70% -10%, #ffe6f2 0, #fff7fb 45%, #fff 100%) fixed;
+    font-family: "Quicksand", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--ink);
+    overflow-x: hidden;
+}
+
+/* Floating hearts background */
+.heart { position: fixed; bottom: -60px; font-size: 22px; opacity: .8; z-index: 0; pointer-events: none; }
+@keyframes floatUp { to { transform: translateY(-120vh) rotate(360deg); opacity: 0; } }
+
+/* Layout */
+.wrap { position: relative; min-height: 100%; display: grid; place-items: center; padding: 48px 16px 80px; }
+.card-shell { position: relative; width: min(720px, 92vw); z-index: 2; }
+
+/* Envelope */
+.envelope { position: relative; width: 100%; aspect-ratio: 3/2; background: var(--accent-2); border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,.08); overflow: hidden; }
+.envelope.open { overflow: visible; }
+.envelope .flap { position: absolute; inset: 0; background: linear-gradient(180deg, var(--accent) 0, var(--accent-2) 65%); clip-path: polygon(0 0, 100% 0, 50% 60%); transform-origin: top; transition: transform .7s cubic-bezier(.22,1,.36,1); }
+.envelope.open .flap { transform: rotateX(180deg); }
+.seal { position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); background: var(--gold); color: #7a4; padding: 10px 12px; border-radius: 999px; font-weight: 600; letter-spacing: .04em; box-shadow: 0 4px 10px rgba(0,0,0,.08); transition: opacity .3s ease, transform .2s ease; cursor: pointer; z-index: 10; }
+.seal:hover { transform: translate(-50%, -50%) scale(1.05); }
+.seal:active { transform: translate(-50%, -50%) scale(0.98); }
+.envelope.open .seal { opacity: 0; pointer-events: none; }
+
+/* Inner card */
+.inner { position: absolute; left: 50%; top: 150%; transform: translate(-50%, -50%) rotate(-2deg); width: 94%; background: var(--card); border-radius: 16px; padding: 22px 20px; box-shadow: 0 12px 28px rgba(0,0,0,.12); transition: transform .7s cubic-bezier(.22,1,.36,1), top .7s cubic-bezier(.22,1,.36,1); z-index: 5; }
+.envelope.open .inner { top: -20%; transform: translate(-50%, -10%) rotate(0deg); }
+
+.title { font-family: "Sacramento", cursive; font-size: clamp(36px, 10vw, 64px); margin: 6px 0 0; text-align: center; color: var(--accent); }
+.subtitle { text-align: center; opacity: .75; margin: 4px 0 14px; }
+
+.typewriter { display: inline-block; border-right: 2px solid var(--accent); padding-right: 4px; white-space: nowrap; min-height: 1.2em; }
+
+/* Hide certain controls until envelope opens */
+#musicBtn, #shareBtn { display: none; }
+.envelope.open #musicBtn, .envelope.open #shareBtn { display: inline-block; }
+
+.controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 14px auto 0; }
+button, .linklike { appearance: none; border: 0; background: var(--accent); color: white; padding: 10px 14px; border-radius: 999px; font-weight: 600; cursor: pointer; box-shadow: 0 8px 20px rgba(255, 122, 162, .35); transition: transform .08s ease, box-shadow .2s ease, opacity .2s; }
+button:active { transform: translateY(1px); box-shadow: 0 2px 10px rgba(0,0,0,.15); }
+.ghost { background: #fff; color: var(--accent); border: 2px solid var(--accent); box-shadow: none; }
+
+.footer { display: none; margin-top: 16px; text-align: center; font-size: 13px; opacity: .7; }
+.envelope.open .footer { display: block; }
+
+/* Confetti canvas */
+canvas#confetti { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50; }
+
+/* Lightbox gallery */
+.gallery { display: none; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 16px 0 0; }
+.envelope.open .gallery { display: flex; }
+.gallery img { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; cursor: pointer; box-shadow: 0 6px 14px rgba(0,0,0,.08); transition: transform .2s ease, box-shadow .2s ease; }
+.gallery img:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+.lightbox { position: fixed; inset: 0; display: none; place-items: center; background: rgba(0,0,0,.55); backdrop-filter: blur(2px); z-index: 10; }
+.lightbox.open { display: grid; }
+.lightbox img { max-width: 92vw; max-height: 82vh; border-radius: 16px; box-shadow: 0 16px 40px rgba(0,0,0,.5); }
+
+.muted { opacity: .6 }
