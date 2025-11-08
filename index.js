@@ -115,6 +115,9 @@
     })();
     
     // Now set up envelope opening after confetti is initialized
+    const bgm = qs('#bgm');
+    let playing = false;
+    
     const openEnvelope = () => {
       console.log('openEnvelope called!');
       const wasOpen = envelope.classList.contains('open');
@@ -123,6 +126,17 @@
         console.log('Opening envelope - starting celebration!');
         confetti.start();
         typeLines(LINES);
+        // Auto-play music
+        if (bgm) {
+          bgm.play().then(() => {
+            console.log('Music started playing!');
+            playing = true;
+            const musicBtn = qs('#musicBtn');
+            if (musicBtn) musicBtn.textContent = 'Pause music ❚❚';
+          }).catch(err => {
+            console.log('Autoplay blocked by browser:', err);
+          });
+        }
       }
     };
     
@@ -153,18 +167,18 @@
 
     // Music controls
     const musicBtn = qs('#musicBtn');
-    const bgm = qs('#bgm');
-    let playing = false;
     if (musicBtn && bgm) {
       musicBtn.addEventListener('click', async () => {
-        if (!bgm.src) {
-          // Add your track URL here (must be same-origin or CORS-allowed). Example:
-          // bgm.src = 'music.mp3';
-        }
         try {
-          if (!playing) { await bgm.play(); musicBtn.textContent = 'Pause music ❚❚'; }
-          else { bgm.pause(); musicBtn.textContent = 'Play music ♪'; }
-          playing = !playing;
+          if (!playing) { 
+            await bgm.play(); 
+            musicBtn.textContent = 'Pause music ❚❚';
+            playing = true;
+          } else { 
+            bgm.pause(); 
+            musicBtn.textContent = 'Play music ♪';
+            playing = false;
+          }
         } catch (e) {
           toast('Autoplay blocked — tap again after interacting.');
         }
