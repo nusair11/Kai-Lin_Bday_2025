@@ -40,7 +40,7 @@ body {
 .title { font-family: "Sacramento", cursive; font-size: clamp(36px, 10vw, 64px); margin: 6px 0 0; text-align: center; color: var(--accent); }
 .subtitle { text-align: center; opacity: .75; margin: 4px 0 14px; }
 
-.typewriter { display: inline-block; border-right: 2px solid var(--accent); padding-right: 4px; white-space: nowrap; min-height: 1.2em; }
+.typewriter { display: inline-block; border-right: 2px solid var(--accent); padding-right: 4px; white-space: normal; min-height: 1.2em; max-width: 100%; word-wrap: break-word; }
 
 /* Hide certain controls until envelope opens */
 #musicBtn, #shareBtn { display: none; }

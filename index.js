@@ -36,6 +36,7 @@
     }
 
     // Typewriter
+    let isTyping = false;
     async function typeLines(lines) {
       const el = qs('#tw');
       console.log('typeLines called, el:', el, 'lines:', lines);
@@ -43,11 +44,19 @@
         console.error('Typewriter element #tw not found!');
         return;
       }
+      if (isTyping) {
+        console.log('Already typing, skipping...');
+        return;
+      }
+      isTyping = true;
       el.textContent = '';
       el.style.display = 'inline-block';
       el.style.visibility = 'visible';
       el.style.opacity = '1';
+      el.style.borderRight = '2px solid var(--accent)';
+      
       const sleep = ms => new Promise(r => setTimeout(r, ms));
+      
       for (let i=0; i<lines.length; i++) {
         el.textContent = '';
         console.log('Typing line', i, ':', lines[i]);
@@ -55,15 +64,29 @@
           el.textContent += ch;
           await sleep(40 + Math.random()*40);
         }
-        await sleep(900);
-        if (i < lines.length - 1) await fadeBlink(el, 250);
+        
+        // Wait at end of line
+        await sleep(1500);
+        
+        // If not last line, fade out before next line
+        if (i < lines.length - 1) {
+          await fadeBlink(el, 300);
+        }
       }
+      
+      // Remove cursor at the end
       el.style.borderRight = '0';
+      isTyping = false;
       console.log('Typewriter finished');
     }
-    async function fadeBlink(el, dur=250) {
-      el.style.opacity = .2; await new Promise(r => setTimeout(r, dur));
-      el.style.opacity = 1;  await new Promise(r => setTimeout(r, dur));
+    
+    async function fadeBlink(el, dur=300) {
+      el.style.transition = `opacity ${dur}ms ease`;
+      el.style.opacity = '.3';
+      await new Promise(r => setTimeout(r, dur));
+      el.style.opacity = '1';
+      await new Promise(r => setTimeout(r, dur));
+      el.style.transition = '';
     }
 
     // Confetti
